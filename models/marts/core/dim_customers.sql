@@ -1,26 +1,20 @@
 with 
     orders as (
-    select * from {{ref('stg_orders')}}
+    select * from {{ref('fct_orders')}}
     ),
 
     customers as (
     select * from {{ref('stg_customers')}}
     ),
-
-    fct_orders as (
-        select * from {{ref('fct_orders')}}
-    ),
-
     
     customer_orders as (
     select
-        t1.customer_id,
+        customer_id,
         min(order_date) as first_order_date,
         max(order_date) as most_recent_order_date,
-        count(t1.order_id) as number_of_orders,
-        sum(t2.amount) as lifetime_value
-    from orders as t1
-    inner join fct_orders as t2 on t1.order_id = t2.order_id
+        count(order_id) as number_of_orders,
+        sum(amount) as lifetime_value
+    from orders
     group by 1
     ),
 
