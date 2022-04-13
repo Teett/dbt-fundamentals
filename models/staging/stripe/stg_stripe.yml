@@ -2,14 +2,19 @@ version: 2
 
 models:
   - name: stg_payments
+    description: Staging payments from our jaffle shop app. One row per payment_id.
     columns:
       - name: payment_id
+        description: Primary key for payments.
         tests:
           - not_null
           - unique
       - name: order_id
+        description: Foreign key from stg_orders.order_id
         tests:
           - relationships:
               to: ref('stg_orders')
               field: order_id
+      - name: amount
+        description: '{{doc("payment_amount")}}'
       
