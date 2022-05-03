@@ -1,0 +1,4 @@
+version: 2
+models:
+  - name: all_dates
+    description: all the daily dates from 2020 generated using the dbt_utils package.
